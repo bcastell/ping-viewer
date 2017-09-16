@@ -8,29 +8,29 @@ import select
 class Pinger:
 	"""Sends periodic ping messages to destination IP address"""
 
-    def __init__(self, payload_str, packet_cnt, destination_ip, timeout = 2):
-        """Initializes pinger"""
+	def __init__(self, payload_str, packet_cnt, destination_ip, timeout = 2):
+		"""Initializes pinger"""
 
-        self.payload_str = payload_str
-        self.packet_cnt = packet_cnt
-        self.destination_ip = destination_ip
-        self.timeout = timeout
-        self.pingsocket = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
+		self.payload_str = payload_str
+		self.packet_cnt = packet_cnt
+		self.destination_ip = destination_ip
+		self.timeout = timeout
+		self.pingsocket = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
 
 	def ping(self):
-        """Pings the destination IP address"""
+		"""Pings the destination IP address"""
 
-        echo = "Pinging {} with {} bytes of data \"{}\":".format(self.destination_ip, len(self.payload_str), self.payload_str)
-        print(echo)
+		echo = "Pinging {} with {} bytes of data \"{}\":".format(self.destination_ip, len(self.payload_str), self.payload_str)
+		print(echo)
 
-        ICMP_ECHO_REQUEST = 8
+		ICMP_ECHO_REQUEST = 8
 
-        received = 0
-        lost = 0
-        minrtt = 0
-        maxrtt = 0
-        avgrtt = 0
-        avgcnt = 0
+		received = 0
+		lost = 0
+		minrtt = 0
+		maxrtt = 0
+		avgrtt = 0
+		avgcnt = 0
 
 		for i in range(self.packet_cnt):
 			packet_id = int((self.timeout * random.random()) % 65535)
